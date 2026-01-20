@@ -1,5 +1,3 @@
-README.md
-
 # Reflex Game – Champion Edition (Arduino + C)
 
 Two-player reflex game using a colour sensor, RGB LEDs, score LEDs, a start button, and a champion fanfare sound.
