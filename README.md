@@ -1,52 +1,63 @@
-# Reflex Game – Mario Edition (Arduino + C)
+README.md
 
-A two-player reflex game using a colour sensor (TCS3200/TCS230 style), RGB LEDs, score LEDs, a start button, and Mario sound effects.  
-The Arduino handles hardware + sensor reading. The PC app (C) controls the game flow over serial.
+# Reflex Game – Champion Edition (Arduino + C)
 
-## How it works
-- Press the **start button** on Arduino to begin a new game.
-- Each round, the PC app tells Arduino which colour to show.
-- Players present the correct colour card to the sensor.
-- PC measures reaction time and awards the round to the faster player.
-- Score LEDs show who won each round (best of 3).
+Two-player reflex game using a colour sensor, RGB LEDs, score LEDs, a start button, and a champion fanfare sound.
 
 ## Hardware
-- Arduino (Uno/Nano works)
-- Colour sensor module (TCS3200/TCS230 type)
-- RGB LED (or 3 single LEDs)
-- 6 score LEDs (3 per player)
-- Buzzer
-- Start button
-- Resistors + jumper wires
+- Arduino (Uno/Nano)
+- Colour sensor (TCS3200/TCS230 type)
+- 1x RGB LED (or 3 separate LEDs: red/green/blue)
+- 6x score LEDs (3 per player)
+- 1x buzzer
+- 1x push button (start)
+- Resistors + breadboard + jumper wires
 
 ## Pin mapping (Arduino)
-### Colour sensor
-- S0 = D4  
-- S1 = D5  
-- S2 = D6  
-- S3 = D7  
-- OUT = D8  
+Colour sensor:
+- S0 = D4
+- S1 = D5
+- S2 = D6
+- S3 = D7
+- OUT = D8
 
-### RGB LED
-- Red = D9  
-- Green = D10  
-- Blue = D11  
+RGB LED:
+- Red = D9
+- Green = D10
+- Blue = D11
 
-### Buzzer + Start button
-- Buzzer = D3  
+Buzzer + Button:
+- Buzzer = D3
 - Start button = D2 (INPUT_PULLUP)
 
-### Score LEDs
-- Player 1: A0, A1, A2  
-- Player 2: A3, A4, A5  
+Score LEDs:
+- Player 1: A0, A1, A2
+- Player 2: A3, A4, A5
 
-## Run the Arduino code
-1. Open the `.ino` file in Arduino IDE.
-2. Select your board + port.
-3. Upload.
-4. Open Serial Monitor at **9600 baud** if you want to see status messages.
+## Arduino run steps
+1. Open `arduino/reflex_game_arduino/reflex_game_arduino.ino`
+2. Select board + port
+3. Upload
+4. Optional: Serial Monitor at 9600 baud (you’ll see READY)
 
-## Run the PC client (C)
-### Windows (MinGW example)
-```bash
+## PC client build
+Windows (MinGW):
 gcc pc_client/reflex_game_pc_client.c -o reflex_game.exe
+
+Linux/macOS:
+gcc pc_client/reflex_game_pc_client.c -o reflex_game
+
+Run it and enter your port when asked:
+- Windows: COM3 (or \\.\COM3)
+- Linux: /dev/ttyACM0 or /dev/ttyUSB0
+- macOS: /dev/tty.usbmodemXXXX
+
+## Serial commands
+- PLAY_START
+- PLAY_CHAMPION
+- EFFECT
+- SHOW_COLOR:<0|1|2>
+- READ_COLOR
+- CLEAR_GAME / CLEAR_ALL
+- SCORE_LED:<player>:<round>
+- CELEBRATE:<player>
